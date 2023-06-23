@@ -43,12 +43,11 @@ onValue(child(dbRef, `Waiting Lists/`), (snapshot) => {
         const firebaseArray = snapshot.val()
         if (firebaseArray !== "") {
           firebaseArray.map((fbItem => {
-            createListItem(roomType = `${groupTitle}` , lockerNumber = fbItem)
+            createListItem(group, fbItem)
           }
           ))
         }
       } else {
-        roomType = ""
         console.log("No data available");
       }
     }).catch((error) => {
@@ -57,7 +56,7 @@ onValue(child(dbRef, `Waiting Lists/`), (snapshot) => {
   })
 })
 
-function createListItem() {
+function createListItem(roomType, lockerNumber) {
   const newElement = document.createElement("li")
   newElement.className = "listItems"
 
@@ -66,29 +65,5 @@ function createListItem() {
   lockerNumberText.setAttribute("class", "locker-text")
   newElement.appendChild(lockerNumberText)
 
-  setRoom(newElement)
-}
-
-function setRoom(newElement) {
-  let list
-  switch(roomType) {
-    case "Non TV":
-      list = groupOne
-      break;
-    case "Regular TV":
-      list = groupTwo
-      break;
-    case "Large TV":
-      list = groupThree
-      break;
-    case "Regular Suite":
-      list = groupFour
-      break;
-    case "Deluxe Suite":
-      list = groupFive
-      break;
-    default:
-      list = "any"
-  }
-  list.appendChild(newElement)
+  roomType.appendChild(newElement)
 }
