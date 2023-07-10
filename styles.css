@@ -56,7 +56,6 @@ body {
   width: 170px;
   height: 30px;
   margin: 5px;
-  cursor: pointer;
 }
 
 .listItems::before {
@@ -76,12 +75,18 @@ body {
   left: -8px;
 }
 
-.listItems:hover {
-  outline: 1px solid rgb(90, 200, 250);
-}
-
 .locker-text {
   color: rgb(52, 199, 89);
   font-size: 14px;
   letter-spacing: -1px;
+  cursor: default;
+}
+
+#messageBoard {
+  width: 99%;
+  height: 25vh;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
