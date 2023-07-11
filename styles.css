@@ -15,8 +15,8 @@ body {
 
 #listContainer {
   display: flex;
-  justify-content: space-apart;
   width: 100%;
+  border-top: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 #listContainer ul {
@@ -26,12 +26,17 @@ body {
   list-style-type: none;
   position: relative;
   height: 100vh;
-  border-right: 1px solid rgb(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   cursor: auto;
+  padding-top: 20px;
+  font-size: 30px;
+  color: white;
+  background-color: hsl(0, 0%, 13%);
+  font-family: "Bebas Neue", sans-serif;
 }
 
 #listContainer ul:last-child {
@@ -89,4 +94,86 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
+}
+
+.message {
+  font-size: 40px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.message-left {
+  animation: animate-left 0.7s linear;
+  overflow: hidden;
+}
+
+@keyframes animate-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+.message-grow {
+  animation: animate-grow 1.5s linear;
+}
+
+@keyframes animate-grow {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.message-top-down {
+  transform-origin: 50% 0;
+  animation: animate-top-down 0.7s linear;
+}
+
+@keyframes animate-top-down {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.message-bottom-up {
+  animation: animate-bottom-up 0.7s linear;
+  overflow: hidden;
+}
+
+@keyframes animate-bottom-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.message-opacity {
+  animation: animate-opacity 1.5s linear;
+}
+
+@keyframes animate-opacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

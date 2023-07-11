@@ -29,16 +29,13 @@ const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
 onValue(child(dbRef, `Announcements/Locker Number Ready`), (snapshot) => {
   if (snapshot.exists()) {
-    clearInterval(timeout)
-    const firebaseArray = snapshot.val()
-    if (firebaseArray !== "") {
-      createAnncmt(firebaseArray)
-    } else {
-    console.log("No data available");
     while(messageBoard.firstElementChild) {
       messageBoard.firstElementChild.remove();
    }
-  }}
+    clearInterval(timeout)
+    const firebaseArray = snapshot.val()
+    createAnncmt(firebaseArray)
+  }
 })
 
 // this onValue built in Firebase function listens for any changes to the database and then will update the
@@ -83,32 +80,43 @@ function createListItem(roomType, lockerNumber) {
 }
 
 function createAnncmt(arr) {
-  const array = []
-  arr.map(item => {
-    const message = `${item["Locker Number"]}, your ${item["Room"]} is ready! Please come to the front desk.`
-    array.unshift(message)
-  })
+  let messageArr = []
+  let delay
+  if (arr == "") {
+    let template = "There are currently no rooms available. Thanks for your patience!"
+    messageArr.push(template)
+    delay = 10000
+  } else {
+    arr.map(item => {
+      let lockerNum = item["Locker Number"]
+      let room = item["Room"]
+      const template = `${lockerNum}, your ${room} ${(room == "Non TV" || room == "Regular TV" || room == "Large TV") ? "room" : ""} is ready! Please come to the front desk.`
+      // unshift allows me to announce the locker number ready immediately
+      messageArr.unshift(template)
+    })
+    delay = 5000
+  }
   let count = 0
   timeout = setInterval(function cycleText() {
+    console.log(count)
     count++
-    let index = count % array.length
+    let index = (count - 1) % messageArr.length
     let message = document.createElement('p')
     while(messageBoard.firstElementChild) {
       messageBoard.firstElementChild.remove();
-   }
-    message.innerText = array[index]
+    }
+    // this allows me to randomly add css animations for each new message
+    const randomAnimationArr = ["message-grow", "message-left", "message-top-down", "message-bottom-up", "message-opacity"]
+    const randomAnimation = randomAnimationArr[Math.floor(Math.random() * randomAnimationArr.length)]
+    message.classList.add("message", randomAnimation)
+    // message.classList.add("message", "message-grow")
+    message.innerText = messageArr[index]
     messageBoard.appendChild(message)
+    console.log(message)
     return cycleText
-  }(), 2500)
-  // double parentheses before interval, invokes immediately in addition to return cycleText
+  }(), delay)
+  // double parentheses before interval, invokes immediately in addition to "return cycleText;"" above
 }
-
-
-
-
-
-
-
 
 
 // create array that cycles through the available messages
