@@ -15,6 +15,7 @@ initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase())
 
 const messageBoard = document.getElementById("messageBoard")
+const lists = document.getElementsByClassName("roomList")
 
 const groupOne = document.getElementById("list1")
 const groupTwo = document.getElementById("list2")
@@ -49,14 +50,19 @@ onValue(child(dbRef, `Waiting Lists/`), () => {
       group.removeChild(group.lastChild)
     }
     let groupTitle = group.title
+    const lockerContainer = document.createElement("div")
+    lockerContainer.classList.add("lockerContainer")
+    const listDiv = group.appendChild(lockerContainer)
+
     get(child(dbRef, `Waiting Lists/` + `${groupTitle}/`)).then((snapshot) => {
       if (snapshot.exists()) {
         const firebaseArray = snapshot.val()
         if (firebaseArray !== "") {
           firebaseArray.map((fbItem => {
-            createListItem(group, fbItem["Locker Number"])
+            createListItem(listDiv, fbItem["Locker Number"])
           }
           ))
+          animateList(listDiv)
         }
       } else {
         console.log("No data available");
@@ -81,24 +87,25 @@ function createListItem(roomType, lockerNumber) {
 
 function createAnncmt(arr) {
   let messageArr = []
+  const messageOptionsArr = ["come to", "sachay toward", "bounce that booty to"]
+  const randomMessageChoice = messageOptionsArr[Math.floor(Math.random() * messageOptionsArr.length)]
   let delay
   if (arr == "") {
-    let template = "There are currently no rooms available. Thanks for your patience!"
+    const template = "There are currently no rooms available. Thanks for your patience!"
     messageArr.push(template)
     delay = 10000
   } else {
     arr.map(item => {
       let lockerNum = item["Locker Number"]
       let room = item["Room"]
-      const template = `${lockerNum}, your ${room} ${(room == "Non TV" || room == "Regular TV" || room == "Large TV") ? "room" : ""} is ready! Please come to the front desk.`
+      const template = `${lockerNum}, your ${room} ${(room == "Non TV" || room == "Regular TV" || room == "Large TV") ? "room" : ""} is ready! Please ${randomMessageChoice} the front desk.`
       // unshift allows me to announce the locker number ready immediately
       messageArr.unshift(template)
     })
-    delay = 5000
+    delay = 10000
   }
   let count = 0
   timeout = setInterval(function cycleText() {
-    console.log(count)
     count++
     let index = (count - 1) % messageArr.length
     let message = document.createElement('p')
@@ -109,13 +116,30 @@ function createAnncmt(arr) {
     const randomAnimationArr = ["message-grow", "message-left", "message-top-down", "message-bottom-up", "message-opacity"]
     const randomAnimation = randomAnimationArr[Math.floor(Math.random() * randomAnimationArr.length)]
     message.classList.add("message", randomAnimation)
-    // message.classList.add("message", "message-grow")
+    // message.classList.add("message", "message-left")
     message.innerText = messageArr[index]
     messageBoard.appendChild(message)
-    console.log(message)
     return cycleText
   }(), delay)
   // double parentheses before interval, invokes immediately in addition to "return cycleText;"" above
+}
+
+// this function will animate the list if it exceeds its container size allowing viewer to see the whole list as it moves upwards
+function animateList(roomType) {
+  // all lists will have the same height dependent on viewheight of screen, so, this pulls
+  // an array of each lists and gives me height of the first index list
+  const listHeight = lists[0].getBoundingClientRect().height
+  const containerHeight = roomType.getBoundingClientRect().height
+  // in order to create a continuous flow of the list moving, I have to create a clone that moves at same speed
+  if ((containerHeight + 42) >= listHeight) {
+    roomType.style.paddingBottom = "80px"
+    const clone = roomType.cloneNode(true)
+    const parent = roomType.parentElement
+    clone.style.counterReset = "locker-count 0"
+    parent.append(clone)
+    roomType.classList.add("animate-list-primary")
+    clone.classList.add("animate-list-secondary")
+  }
 }
 
 
