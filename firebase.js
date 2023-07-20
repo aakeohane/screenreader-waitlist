@@ -17,16 +17,7 @@ const dbRef = ref(getDatabase())
 const messageBoard = document.getElementById("messageBoard")
 const lists = document.getElementsByClassName("roomList")
 
-const groupOne = document.getElementById("list1")
-const groupTwo = document.getElementById("list2")
-const groupThree = document.getElementById("list3")
-const groupFour = document.getElementById("list4")
-const groupFive = document.getElementById("list5")
-
 let timeout
-
-// set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
-const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
 onValue(child(dbRef, `Announcements/Locker Number Ready`), (snapshot) => {
   if (snapshot.exists()) {
@@ -39,39 +30,58 @@ onValue(child(dbRef, `Announcements/Locker Number Ready`), (snapshot) => {
   }
 })
 
+
 // this onValue built in Firebase function listens for any changes to the database and then will update the
 // lists with the corresponding data
-onValue(child(dbRef, `Waiting Lists/`), () => {
-  firebaseListArray.map((group) => {
-    // my first while loop!! I never used one =D this will remove the dom list nodes and then reset
-    // them while the length is greater than one, this accounts for the actual html title of the list which I did not
-    // want to delete
-    while (group.childNodes.length > 1) {
-      group.removeChild(group.lastChild)
-    }
-    let groupTitle = group.title
-    const lockerContainer = document.createElement("div")
-    lockerContainer.classList.add("lockerContainer")
-    const listDiv = group.appendChild(lockerContainer)
-
-    get(child(dbRef, `Waiting Lists/` + `${groupTitle}/`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        const firebaseArray = snapshot.val()
-        if (firebaseArray !== "") {
-          firebaseArray.map((fbItem => {
-            createListItem(listDiv, fbItem["Locker Number"])
-          }
-          ))
-          animateList(listDiv)
+onValue(child(dbRef, `Waiting Lists/`), (snapshot) => {
+      const nodes = document.getElementsByClassName("lockerContainer")
+      const nodeList = [...nodes]
+      const filteredArray = []
+      // filters out the animated secondary node because it causes parent node glitch
+      nodeList.map(item => {
+        if (!item.classList.contains("animate-list-secondary")) {
+          filteredArray.push(item)
         }
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  })
+      })
+      filteredArray.map((lockerGroup) => {
+        let listName = lockerGroup.parentNode.title
+        let parent = lockerGroup.parentNode
+        // this if statement allows me to only change the lists that are being edited rather than changing all of them
+        if ((lockerGroup.children.length) != (snapshot.val()[`${listName}`].length)) {
+          // my first while loop!! I never used one =D this will remove the cloned dom lockerContainer for the animated nodes while the length 
+          // is greater than one (one representing the initial lockerContainer)
+          while (parent.children.length > 1) {
+            parent.removeChild(parent.lastChild)
+          }
+
+          while(lockerGroup.children.length > 0) {
+            lockerGroup.removeChild(lockerGroup.lastChild)
+          }
+          // not the ideal solution, but the only one that seemed to work was remove classLists and rename them if necesary with addLockers function
+          lockerGroup.classList.remove("animate-list-primary")
+          lockerGroup.classList.remove("animate-list-secondary")
+          addLockers(lockerGroup, listName)
+        }
+      })
 })
+
+function addLockers(listDiv, groupTitle) {
+  get(child(dbRef, `Waiting Lists/` + `${groupTitle}/`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      const firebaseArray = snapshot.val()
+      if (firebaseArray !== "") {
+        firebaseArray.map((lockerItem => {
+          createListItem(listDiv, lockerItem["Locker Number"])
+        }
+        ))
+      } animateList(listDiv)
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
 
 function createListItem(roomType, lockerNumber) {
   const newElement = document.createElement("li")
@@ -87,7 +97,7 @@ function createListItem(roomType, lockerNumber) {
 
 function createAnncmt(arr) {
   let messageArr = []
-  const messageOptionsArr = ["come to", "sachay toward", "bounce that booty to"]
+  const messageOptionsArr = ["cum to", "sachay toward", "bounce that booty to"]
   const randomMessageChoice = messageOptionsArr[Math.floor(Math.random() * messageOptionsArr.length)]
   let delay
   if (arr == "") {
@@ -116,12 +126,11 @@ function createAnncmt(arr) {
     const randomAnimationArr = ["message-grow", "message-left", "message-top-down", "message-bottom-up", "message-opacity"]
     const randomAnimation = randomAnimationArr[Math.floor(Math.random() * randomAnimationArr.length)]
     message.classList.add("message", randomAnimation)
-    // message.classList.add("message", "message-left")
     message.innerText = messageArr[index]
     messageBoard.appendChild(message)
     return cycleText
   }(), delay)
-  // double parentheses before interval, invokes immediately in addition to "return cycleText;"" above
+  // double parentheses before interval, invokes immediately in addition to "return cycleText" above
 }
 
 // this function will animate the list if it exceeds its container size allowing viewer to see the whole list as it moves upwards
@@ -131,10 +140,10 @@ function animateList(roomType) {
   const listHeight = lists[0].getBoundingClientRect().height
   const containerHeight = roomType.getBoundingClientRect().height
   // in order to create a continuous flow of the list moving, I have to create a clone that moves at same speed
-  if ((containerHeight + 42) >= listHeight) {
+  if ((containerHeight + 45) >= listHeight) {
     roomType.style.paddingBottom = "80px"
     const clone = roomType.cloneNode(true)
-    const parent = roomType.parentElement
+    const parent = roomType.parentNode
     clone.style.counterReset = "locker-count 0"
     parent.append(clone)
     roomType.classList.add("animate-list-primary")
@@ -142,6 +151,4 @@ function animateList(roomType) {
   }
 }
 
-
-// create array that cycles through the available messages
 // message on bottom saying thanks for waiting etc.

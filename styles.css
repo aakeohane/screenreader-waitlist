@@ -11,7 +11,9 @@
   height: 100vh;
   grid-template:
     ". . ."
-    "a a a" 50vh / 2fr 1fr 1fr;
+    "a a a";
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 48vh 48vh 4vh;
 }
 
 ul {
@@ -31,7 +33,7 @@ ul {
   background-color: hsl(0, 0%, 13%);
   font-family: "Bebas Neue", sans-serif;
   overflow-y: hidden;
-  font-size: 40px;
+  font-size: clamp(1.5rem, 5vw, 3rem);
 }
 
 ul:last-child {
@@ -60,7 +62,7 @@ ul[title]::before {
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin: 0 100px 0 100px;
+  margin: 0 clamp(0.5vw, 1.5vw, 2vw) 0 clamp(0.5vw, 1.5vw, 2vw);
 }
 
 .grid-row-wrapper {
@@ -69,8 +71,17 @@ ul[title]::before {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.footer {
+  display: grid;
+  grid-column: 1 / span 3;
+  place-items: center;
+  text-align: center;
+  color: black;
+  background-color: white;
+}
+
 .listItems:first-child {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .listItems {
@@ -114,7 +125,7 @@ ul[title]::before {
 }
 
 .message {
-  font-size: 3.5rem;
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
   font-family: "Bebas Neue", sans-serif;
 }
 
