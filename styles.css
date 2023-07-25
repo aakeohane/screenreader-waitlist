@@ -63,6 +63,15 @@ ul[title]::before {
   text-align: center;
   justify-content: center;
   margin: 0 clamp(0.5vw, 1.5vw, 2vw) 0 clamp(0.5vw, 1.5vw, 2vw);
+  position: relative;
+}
+
+#messageBoard > footer {
+  position: absolute;
+  bottom: 0;
+  text-align: left;
+  margin: 0 -1.2vw 0 -1.2vw;
+  font-size: 1rem;
 }
 
 .grid-row-wrapper {
@@ -127,6 +136,16 @@ ul[title]::before {
 .message {
   font-size: clamp(1.5rem, 5vw, 3.5rem);
   font-family: "Bebas Neue", sans-serif;
+  /* position: relative; */
+}
+
+.message::after {
+  content: "*";
+  font-family: "Source Sans", sans-serif;
+  position: relative;
+  bottom: 20px;
+  right: 11px;
+  font-size: 30px;
 }
 
 /* animations for the .message text upon appending to DOM */

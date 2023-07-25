@@ -14,7 +14,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase())
 
-const messageBoard = document.getElementById("messageBoard")
+const messageBoard = document.getElementById("announcement-message")
 const lists = document.getElementsByClassName("roomList")
 
 let timeout
