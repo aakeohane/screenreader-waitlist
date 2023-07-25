@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: "Source Sans", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .grid-wrapper {
@@ -71,7 +71,8 @@ ul[title]::before {
   bottom: 0;
   text-align: left;
   margin: 0 -1.2vw 0 -1.2vw;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .grid-row-wrapper {
@@ -111,8 +112,8 @@ ul[title]::before {
 .listItems::before {
   counter-increment: locker-count;
   content: counter(locker-count);
-  background-color: rgb(52, 199, 89);
-  color: white;
+  background-color: rgb(255, 215, 0);
+  color: hsl(0, 0%, 13%);
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -127,7 +128,7 @@ ul[title]::before {
 }
 
 .locker-text {
-  color: rgb(52, 199, 89);
+  color: rgb(255, 215, 0);
   font-size: 28px;
   letter-spacing: -1px;
   cursor: default;
@@ -137,15 +138,6 @@ ul[title]::before {
   font-size: clamp(1.5rem, 5vw, 3.5rem);
   font-family: "Bebas Neue", sans-serif;
   /* position: relative; */
-}
-
-.message::after {
-  content: "*";
-  font-family: "Source Sans", sans-serif;
-  position: relative;
-  bottom: 20px;
-  right: 11px;
-  font-size: 30px;
 }
 
 /* animations for the .message text upon appending to DOM */
