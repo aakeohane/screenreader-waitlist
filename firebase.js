@@ -97,7 +97,7 @@ function createListItem(roomType, lockerNumber) {
 
 function createAnncmt(arr) {
   let messageArr = []
-  const messageOptionsArr = ["cum to", "sachay toward", "bounce that booty to"]
+  const messageOptionsArr = ["cum to", "sashay toward", "bounce that booty to"]
   const randomMessageChoice = messageOptionsArr[Math.floor(Math.random() * messageOptionsArr.length)]
   let delay
   if (arr == "") {
