@@ -64,6 +64,10 @@ ul[title]::before {
   justify-content: center;
   margin: 0 clamp(0.5vw, 1.5vw, 2vw) 0 clamp(0.5vw, 1.5vw, 2vw);
   position: relative;
+  background-image: url("/img/csd-logo.png");
+  background-repeat: no-repeat;
+  background-size: clamp(150px, 30vw, 250px);
+  background-position: 0 10px;
 }
 
 #messageBoard > footer {
@@ -137,7 +141,7 @@ ul[title]::before {
 .message {
   font-size: clamp(1.5rem, 5vw, 3.5rem);
   font-family: "Bebas Neue", sans-serif;
-  /* position: relative; */
+  padding-top: 5%;
 }
 
 /* animations for the .message text upon appending to DOM */
