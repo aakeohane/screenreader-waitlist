@@ -73,10 +73,11 @@ ul[title]::before {
 #messageBoard > footer {
   position: absolute;
   bottom: 0;
-  text-align: left;
+  text-align: center;
   margin: 0 -1.2vw 0 -1.2vw;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-style: italic;
+  color: #1496bb;
 }
 
 .grid-row-wrapper {
@@ -90,8 +91,9 @@ ul[title]::before {
   grid-column: 1 / span 3;
   place-items: center;
   text-align: center;
-  color: black;
-  background-color: white;
+  color: rgb(255, 215, 0);
+  background-color: hsl(0, 0%, 13%);
+  font-size: 1.2rem;
 }
 
 .listItems:first-child {
