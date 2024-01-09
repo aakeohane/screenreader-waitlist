@@ -28,6 +28,7 @@ function clearBoard() {
 
 onValue(child(dbRef, '/'), (snapshot) => {
   const totalValue = snapshot.val()
+  console.log(totalValue)
   // object destructuring
   const {Announcements: {"Locker Number Ready": LockerNumber}, "Waiting Lists": WaitingLists} = totalValue
   const isLockerReadyEmpty = (LockerNumber == "")
@@ -71,7 +72,7 @@ onValue(child(dbRef, `Waiting Lists/`), (snapshot) => {
         let listName = lockerGroup.parentNode.title
         let parent = lockerGroup.parentNode
         // this if statement allows me to only change the lists that are being edited rather than changing all of them
-        if ((lockerGroup.children.length) != (snapshot.val()[`${listName}`].length)) {
+        if ((JSON.stringify(lockerGroup.children)) !== (JSON.stringify(snapshot.val()[`${listName}`]))) {
           // my first while loop!! I never used one =D this will remove the cloned dom lockerContainer for the animated nodes while the length 
           // is greater than one (one representing the initial lockerContainer)
           while (parent.children.length > 1) {
