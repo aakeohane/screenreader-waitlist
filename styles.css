@@ -6,14 +6,19 @@
   font-family: "Source Sans 3", sans-serif;
 }
 
+body {
+  background-color: hsl(0, 0%, 0%);
+}
+
 .grid-wrapper {
   display: grid;
   height: 100vh;
   grid-template:
     ". . ."
-    "a a a";
+    "a a a"
+    "b b b";
   grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 48vh 48vh 4vh;
+  grid-template-rows: 47.5vh 47.5vh 5vh;
 }
 
 ul {
@@ -67,14 +72,14 @@ ul[title]::before {
   background-image: url("/img/csd-logo.png");
   background-repeat: no-repeat;
   background-size: clamp(150px, 30vw, 250px);
-  background-position: 0 10px;
+  margin: 20px;
 }
 
 #messageBoard > footer {
   position: absolute;
   bottom: 0;
   text-align: center;
-  margin: 0 -1.2vw 0 -1.2vw;
+  /* margin: 0 -1.2vw 0 -1.2vw; */
   font-size: 1.2rem;
   font-style: italic;
   color: #1496bb;
@@ -88,12 +93,15 @@ ul[title]::before {
 
 .footer {
   display: grid;
-  grid-column: 1 / span 3;
+  /* grid-column: 1 / span 3; */
+  grid-area: b;
   place-items: center;
   text-align: center;
   color: rgb(255, 215, 0);
   background-color: hsl(0, 0%, 13%);
   font-size: 1.2rem;
+  padding-bottom: 10px;
+  color: #1496bb;
 }
 
 .listItems:first-child {
