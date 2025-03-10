@@ -72,7 +72,8 @@ ul[title]::before {
   background-image: url("/img/csd-logo.png");
   background-repeat: no-repeat;
   background-size: clamp(150px, 30vw, 250px);
-  margin: 20px;
+  background-position: 10px 30px;
+  margin: 0 50px;
 }
 
 #messageBoard > footer {
