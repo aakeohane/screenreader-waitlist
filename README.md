@@ -1,41 +1,39 @@
 # Waitlist Display Screen
 
-The customer-facing companion to the 
-[Waiting-List](https://github.com/aakeohane/Waiting-List) management 
-system. This application runs on a screen visible to clients, showing 
-the live queue so they can see their place in line in real time.
+Customer-facing display built for a spa, showing clients their place in 
+the queue in real time. As front desk staff add entries through the 
+management interface, this screen updates automatically so clients can 
+watch the queue move without having to check in at the desk.
 
-## How It Works
+Part of a two-part system — see the companion repo: 
+[Waiting-List](https://github.com/aakeohane/Waiting-List)
 
-As front desk staff add clients to the queue using the management 
-interface, this display updates automatically — no refresh required. 
-Clients waiting their turn can watch the screen to track their position 
-as the queue moves.
-
-## Features
+## Features ✅
 
 - Live queue display powered by Google Firestore
-- Automatically updates as staff add or remove entries
+- Updates in real time as staff add or remove entries — no page refresh
 - Designed to run on a dedicated customer-facing screen
-- Firebase integration handled via a dedicated firebase.js module
+- Firebase configuration handled via a dedicated module
 
-## Tech Stack
+## Technologies
 
 - JavaScript (vanilla)
 - HTML / CSS
 - Google Firebase / Firestore
 
-## Related Repositories
+## Final Reflections
 
-This project is part of a two-part waitlist system built for a spa client:
+What I enjoyed most about this half of the project was thinking through 
+the user experience from the client's perspective — someone sitting in a 
+waiting area wanting to know where they stand. The challenge was making 
+something that felt calm and clear, updating smoothly without any jarring 
+refreshes. Seeing both sides of the system work together in real time 
+for the first time was a genuinely proud moment.
 
-| Repo | Purpose |
-|------|---------|
-| [Waiting-List](https://github.com/aakeohane/Waiting-List) | Staff-facing interface to manage and add clients to the queue |
-| [screenreader-waitlist](https://github.com/aakeohane/screenreader-waitlist) | Customer-facing screen showing live queue position |
+### Author
 
-## Background
+[Aaron Keohane](https://aaronkeohane.com)
 
-Built as a freelance client project in 2023. The goal was to give clients 
-a transparent, real-time view of the queue so they could relax knowing 
-exactly where they stood — no need to check in repeatedly at the front desk.
+### Version
+
+1.0.0
