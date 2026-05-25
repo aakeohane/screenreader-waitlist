@@ -5,7 +5,7 @@ the queue in real time. As front desk staff add entries through the
 management interface, this screen updates automatically so clients can 
 watch the queue move without having to check in at the desk.
 
-Part of a two-part system — see the companion repo: 
+Part of a two-part system: see the companion repo: 
 [Waiting-List](https://github.com/aakeohane/Waiting-List)
 
 ## Features ✅
@@ -24,9 +24,8 @@ Part of a two-part system — see the companion repo:
 ## Final Reflections
 
 What I enjoyed most about this half of the project was thinking through 
-the user experience from the client's perspective — someone sitting in a 
-waiting area wanting to know where they stand. The challenge was making 
-something that felt calm and clear, updating smoothly without any jarring 
+the user experience from the client's perspective. The challenge was making 
+something that felt calm and clear, updating smoothly for each section without any jarring 
 refreshes. Seeing both sides of the system work together in real time 
 for the first time was a genuinely proud moment.
 
